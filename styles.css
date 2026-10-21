@@ -1,0 +1,709 @@
+/* ============================================================
+   Fee Register — design tokens
+   A school ledger-book identity: manila paper, ink green,
+   rubber-stamp status marks, tab-folder navigation.
+   ============================================================ */
+
+:root{
+  --paper:        #eae2cd;
+  --paper-light:  #faf7ee;
+  --paper-deep:   #ddd2b0;
+  --ink:          #1c2a20;
+  --ink-soft:     #4a5b4d;
+  --ink-faint:    #8a8265;
+  --rule:         #bfae7f;
+  --rule-light:   #d9cca0;
+  --green:        #2f6f4e;
+  --green-deep:   #1e4a34;
+  --amber:        #a3691c;
+  --red:          #a13a2c;
+  --gold:         #8a6d1d;
+  --focus:        #1c5fa8;
+
+  --serif: "Source Serif 4", Georgia, serif;
+  --sans:  "IBM Plex Sans", "Segoe UI", sans-serif;
+
+  --radius-card: 3px;
+  --shadow-lift: 0 2px 0 rgba(28,42,32,0.06), 0 10px 24px -14px rgba(28,42,32,0.35);
+}
+
+*, *::before, *::after{ box-sizing: border-box; }
+
+html, body{
+  margin:0; padding:0; min-height:100%;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+/* subtle paper fibre texture, no images required */
+body{
+  background-image:
+    radial-gradient(rgba(28,42,32,0.035) 1px, transparent 1px);
+  background-size: 3px 3px;
+}
+
+h1,h2,h3{
+  font-family: var(--serif);
+  color: var(--ink);
+  margin: 0 0 0.4em 0;
+  font-weight: 600;
+}
+
+p{ margin: 0 0 0.8em 0; }
+
+button{
+  font-family: var(--sans);
+  cursor: pointer;
+}
+
+a{ color: var(--green-deep); }
+
+.visually-hidden{
+  position:absolute; width:1px; height:1px; overflow:hidden;
+  clip:rect(0 0 0 0); white-space:nowrap;
+}
+
+:focus-visible{
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce){
+  *{ animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
+}
+
+/* ============================================================
+   Buttons
+   ============================================================ */
+
+.btn{
+  display:inline-flex; align-items:center; justify-content:center;
+  gap:0.5em;
+  border:1px solid var(--ink);
+  background: var(--paper-light);
+  color: var(--ink);
+  padding: 0.65em 1.2em;
+  font-size: 0.95rem;
+  font-weight: 600;
+  border-radius: var(--radius-card);
+  transition: transform 120ms ease, background 120ms ease;
+}
+.btn:hover{ background: var(--paper-deep); }
+.btn:active{ transform: translateY(1px); }
+
+.btn-primary{
+  background: var(--green-deep);
+  border-color: var(--green-deep);
+  color: var(--paper-light);
+}
+.btn-primary:hover{ background: var(--green); }
+
+.btn-danger{
+  border-color: var(--red);
+  color: var(--red);
+  background: transparent;
+}
+.btn-danger:hover{ background: rgba(161,58,44,0.08); }
+
+.btn-quiet{
+  border-color: transparent;
+  background: transparent;
+  color: var(--ink-soft);
+  padding: 0.5em 0.6em;
+}
+.btn-quiet:hover{ text-decoration: underline; }
+
+.btn-block{ width:100%; }
+.btn-sm{ padding: 0.4em 0.8em; font-size: 0.82rem; }
+
+/* ============================================================
+   Cover screen
+   ============================================================ */
+
+.cover{
+  min-height:100vh;
+  display:flex; flex-direction:column; align-items:center;
+  padding: 6vh 1.25rem 4rem;
+}
+
+.cover-mark{
+  font-family: var(--sans);
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  color: var(--ink-faint);
+  border: 1px solid var(--rule);
+  padding: 0.3em 0.9em;
+  border-radius: 999px;
+  margin-bottom: 2rem;
+}
+
+.cover-plate{
+  max-width: 640px;
+  width:100%;
+  background: var(--paper-light);
+  border: 1px solid var(--ink);
+  box-shadow: var(--shadow-lift);
+  padding: 3rem 2.4rem 2.6rem;
+  position: relative;
+}
+
+.cover-plate::before{
+  content:"";
+  position:absolute; inset: 10px;
+  border: 1px solid var(--rule);
+  pointer-events:none;
+}
+
+.cover-plate h1{
+  font-size: clamp(1.5rem, 4vw, 2.05rem);
+  text-align:center;
+  line-height:1.25;
+  margin-bottom: 0.6rem;
+}
+
+.cover-plate .sub{
+  text-align:center;
+  color: var(--ink-soft);
+  font-size: 0.95rem;
+  margin-bottom: 2.4rem;
+}
+
+.cover-tabs{
+  display:flex;
+  gap: 0;
+  margin-top: 0.5rem;
+}
+
+.cover-tab{
+  flex:1;
+  background: var(--paper);
+  border: 1px solid var(--ink);
+  padding: 1.6rem 1.2rem;
+  text-align:left;
+  display:flex; flex-direction:column; gap:0.5rem;
+}
+
+.cover-tab + .cover-tab{ border-left: none; }
+
+.cover-tab strong{
+  font-family: var(--serif);
+  font-size: 1.15rem;
+}
+
+.cover-tab span{
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+}
+
+.cover-tab:hover{ background: var(--paper-deep); }
+
+.cover-foot{
+  margin-top: 2rem;
+  font-size: 0.8rem;
+  color: var(--ink-faint);
+  text-align:center;
+  max-width: 480px;
+}
+
+/* ============================================================
+   Auth (login) screens
+   ============================================================ */
+
+.auth-wrap{
+  min-height:100vh;
+  display:flex; align-items:center; justify-content:center;
+  padding: 2rem 1.25rem;
+}
+
+.auth-card{
+  width:100%; max-width: 420px;
+  background: var(--paper-light);
+  border: 1px solid var(--ink);
+  box-shadow: var(--shadow-lift);
+  padding: 2.2rem 2rem;
+}
+
+.auth-card .eyebrow{
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  color: var(--ink-faint);
+  margin-bottom: 0.4rem;
+}
+
+.field{
+  margin-bottom: 1.1rem;
+  display:flex; flex-direction:column; gap:0.35rem;
+}
+
+.field label{
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--ink-soft);
+}
+
+.field input,
+.field select{
+  font-family: var(--sans);
+  font-size: 0.95rem;
+  padding: 0.6em 0.7em;
+  border: 1px solid var(--rule);
+  background: #fff;
+  color: var(--ink);
+  border-radius: 2px;
+}
+
+.field input:focus,
+.field select:focus{ border-color: var(--ink); }
+
+.field .hint{
+  font-size: 0.78rem;
+  color: var(--ink-faint);
+}
+
+.auth-actions{
+  display:flex; flex-direction:column; gap:0.6rem;
+  margin-top: 1.4rem;
+}
+
+.auth-error{
+  background: rgba(161,58,44,0.08);
+  border: 1px solid var(--red);
+  color: var(--red);
+  font-size: 0.85rem;
+  padding: 0.6em 0.8em;
+  margin-bottom: 1rem;
+}
+
+/* ============================================================
+   App shell (post-login)
+   ============================================================ */
+
+.shell{
+  min-height:100vh;
+  display:flex;
+}
+
+.rail{
+  width: 232px;
+  flex-shrink:0;
+  background: var(--green-deep);
+  border-right: 1px solid var(--ink);
+  padding: 1.4rem 0 1.4rem;
+  display:flex; flex-direction:column;
+}
+
+.rail-brand{
+  padding: 0 1.2rem 1.2rem;
+  border-bottom: 1px solid var(--rule);
+  margin-bottom: 0.6rem;
+}
+
+.rail .rail-brand{ border-bottom-color: rgba(250,247,238,0.25); }
+
+.rail-brand .who{
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  color: var(--ink-faint);
+}
+
+.rail .rail-brand .who{ color: rgba(250,247,238,0.65); }
+
+.rail-brand strong{
+  display:block;
+  font-family: var(--serif);
+  font-size: 1.05rem;
+  margin-top: 0.2rem;
+}
+
+.rail .rail-brand strong{ color: var(--paper-light); }
+
+.rail nav{
+  flex:1;
+  display:flex; flex-direction:column;
+  gap: 2px;
+  padding: 0.6rem 0.6rem;
+}
+
+.rail-tab{
+  text-align:left;
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--ink-soft);
+  padding: 0.7em 0.8em;
+  font-size: 0.9rem;
+  border-radius: 2px;
+  display:flex; align-items:center; gap:0.6em;
+}
+
+.rail-tab:hover{ background: rgba(28,42,32,0.06); }
+
+.rail-tab.active{
+  background: var(--paper-light);
+  border-color: var(--ink);
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.rail .rail-tab{ color: rgba(250,247,238,0.85); }
+.rail .rail-tab:hover{ background: rgba(250,247,238,0.12); }
+.rail .rail-tab.active{
+  background: var(--paper-light);
+  border-color: var(--paper-light);
+  color: var(--green-deep);
+}
+
+.rail-foot{
+  padding: 0.8rem 1.2rem 0 ;
+  border-top: 1px solid var(--rule);
+  margin-top: 0.6rem;
+}
+
+.rail .rail-foot{ border-top-color: rgba(250,247,238,0.25); }
+
+.rail .rail-foot .btn-danger{
+  border-color: rgba(250,247,238,0.55);
+  color: var(--paper-light);
+  background: transparent;
+}
+.rail .rail-foot .btn-danger:hover{ background: rgba(250,247,238,0.12); }
+
+.main{
+  flex:1;
+  min-width:0;
+  padding: 2rem 2.4rem 4rem;
+}
+
+.topline{
+  display:flex; align-items:baseline; justify-content:space-between;
+  gap: 1rem;
+  margin-bottom: 1.8rem;
+  flex-wrap: wrap;
+}
+
+.topline h2{
+  font-size: 1.4rem;
+}
+
+.topline .meta{
+  font-size: 0.85rem;
+  color: var(--ink-faint);
+}
+
+/* mobile top-tab bar (shown under 860px instead of the rail) */
+.mobile-bar{
+  display:none;
+}
+
+@media (max-width: 860px){
+  .rail{ display:none; }
+  .mobile-bar{
+    display:flex;
+    overflow-x:auto;
+    border-bottom: 1px solid var(--ink);
+    background: var(--paper-deep);
+    -webkit-overflow-scrolling: touch;
+  }
+  .mobile-bar .rail-tab{
+    flex-shrink:0;
+    border-radius:0;
+  }
+  .mobile-bar .rail-tab.active{ border-bottom: 2px solid var(--green-deep); }
+  .shell{ flex-direction:column; }
+  .main{ padding: 1.4rem 1.1rem 3rem; }
+  .rail-foot-mobile{ padding: 0.8rem 1.1rem; border-bottom:1px solid var(--rule); background:var(--paper-deep); display:flex; justify-content:space-between; align-items:center; }
+}
+
+/* ============================================================
+   Stat strip
+   ============================================================ */
+
+.stat-strip{
+  display:grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1px;
+  background: var(--ink);
+  border: 1px solid var(--ink);
+  margin-bottom: 2rem;
+}
+
+.stat{
+  background: var(--paper-light);
+  padding: 1rem 1.1rem;
+}
+
+.stat .label{
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  color: var(--ink-faint);
+  margin-bottom: 0.3rem;
+}
+
+.stat .value{
+  font-family: var(--serif);
+  font-size: 1.5rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.stat.accent-green .value{ color: var(--green-deep); }
+.stat.accent-amber .value{ color: var(--amber); }
+.stat.accent-red .value{ color: var(--red); }
+
+/* ============================================================
+   Section blocks
+   ============================================================ */
+
+.block{
+  background: var(--paper-light);
+  border: 1px solid var(--rule);
+  margin-bottom: 1.6rem;
+}
+
+.block-head{
+  display:flex; align-items:center; justify-content:space-between;
+  gap:1rem;
+  padding: 0.9rem 1.2rem;
+  border-bottom: 1px solid var(--rule);
+  flex-wrap:wrap;
+}
+
+.block-head h3{ font-size: 1.05rem; margin:0; }
+.block-head .desc{ font-size: 0.82rem; color: var(--ink-faint); margin-top: 0.15rem; }
+
+.block-body{ padding: 1.2rem; }
+
+/* ============================================================
+   Ledger table (register)
+   ============================================================ */
+
+.register{
+  width:100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.register th{
+  text-align:left;
+  font-weight:600;
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
+  color: var(--ink-faint);
+  border-bottom: 1px solid var(--ink);
+  padding: 0.5em 0.7em;
+}
+
+.register td{
+  padding: 0.7em 0.7em;
+  border-bottom: 1px solid var(--rule-light);
+  vertical-align: middle;
+}
+
+.register tbody tr:hover{ background: rgba(191,174,127,0.14); }
+
+.register .num{ font-variant-numeric: tabular-nums; }
+
+.register-empty{
+  padding: 2rem 1rem;
+  text-align:center;
+  color: var(--ink-faint);
+  font-size: 0.9rem;
+}
+
+/* card-style fallback of the register for narrow screens */
+@media (max-width: 720px){
+  .register thead{ display:none; }
+  .register, .register tbody, .register tr, .register td{ display:block; width:100%; }
+  .register tr{
+    border: 1px solid var(--rule);
+    margin-bottom: 0.7rem;
+    background: var(--paper-light);
+  }
+  .register td{
+    border-bottom: none;
+    display:flex; justify-content:space-between; gap:1rem;
+    padding: 0.5em 0.8em;
+  }
+  .register td::before{
+    content: attr(data-label);
+    font-weight:600;
+    color: var(--ink-faint);
+    font-size: 0.75rem;
+  }
+  .register td.no-label::before{ display:none; }
+}
+
+/* ============================================================
+   Status stamps
+   ============================================================ */
+
+.stamp{
+  display:inline-block;
+  font-family: var(--serif);
+  font-weight: 700;
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  padding: 0.25em 0.6em;
+  border: 2px solid currentColor;
+  border-radius: 3px;
+  transform: rotate(-2deg);
+  white-space:nowrap;
+}
+.stamp.paid{ color: var(--green-deep); }
+.stamp.due-soon{ color: var(--amber); }
+.stamp.overdue{ color: var(--red); }
+.stamp.upcoming{ color: var(--ink-faint); border-style:dashed; transform:none; }
+
+/* ============================================================
+   Forms (generic, reused across admin panels)
+   ============================================================ */
+
+.form-grid{
+  display:grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem 1.2rem;
+}
+
+.form-actions{
+  display:flex; gap: 0.7rem; margin-top: 1.2rem; flex-wrap:wrap;
+}
+
+/* ============================================================
+   Reminder / notice list (parent portal)
+   ============================================================ */
+
+.notice{
+  display:flex; gap:1rem; align-items:flex-start;
+  padding: 1rem 1.2rem;
+  border-bottom: 1px solid var(--rule-light);
+}
+.notice:last-child{ border-bottom:none; }
+
+.notice .dot{
+  width:10px; height:10px; border-radius:50%;
+  margin-top: 0.35em; flex-shrink:0;
+}
+.notice.overdue .dot{ background: var(--red); }
+.notice.due-soon .dot{ background: var(--amber); }
+.notice.upcoming .dot{ background: var(--ink-faint); }
+
+.notice .body strong{ display:block; margin-bottom:0.15rem; }
+.notice .body .when{ font-size: 0.82rem; color: var(--ink-soft); }
+
+/* ============================================================
+   Receipt / confirmation
+   ============================================================ */
+
+.receipt{
+  max-width: 420px;
+  margin: 0 auto;
+  background: var(--paper-light);
+  border: 1px solid var(--ink);
+  padding: 1.8rem 1.6rem;
+  position:relative;
+}
+.receipt::before{
+  content:"";
+  position:absolute; inset:8px;
+  border: 1px dashed var(--rule);
+  pointer-events:none;
+}
+.receipt h3{ text-align:center; margin-bottom: 0.2rem; }
+.receipt .ref{ text-align:center; font-size: 0.78rem; color: var(--ink-faint); margin-bottom: 1.4rem; }
+.receipt-row{
+  display:flex; justify-content:space-between;
+  padding: 0.5em 0;
+  border-bottom: 1px solid var(--rule-light);
+  font-size: 0.9rem;
+}
+.receipt-row:last-of-type{ border-bottom:none; }
+.receipt-row .k{ color: var(--ink-soft); }
+.receipt-row .v{ font-variant-numeric: tabular-nums; font-weight:600; }
+.receipt .stamp-wrap{ text-align:center; margin-top: 1.4rem; }
+
+/* ============================================================
+   Bars for reports
+   ============================================================ */
+
+.bar-row{
+  display:grid;
+  grid-template-columns: 130px 1fr 90px;
+  align-items:center;
+  gap: 0.8rem;
+  margin-bottom: 0.85rem;
+  font-size: 0.85rem;
+}
+.bar-row .name{ color: var(--ink-soft); }
+.bar-track{
+  background: var(--paper-deep);
+  border: 1px solid var(--rule);
+  height: 14px;
+  position:relative;
+}
+.bar-fill{ height:100%; background: var(--green-deep); }
+.bar-row .amt{ text-align:right; font-variant-numeric: tabular-nums; }
+
+/* ============================================================
+   Modal (used for payment form)
+   ============================================================ */
+
+.modal-veil{
+  position:fixed; inset:0;
+  background: rgba(28,42,32,0.45);
+  display:flex; align-items:center; justify-content:center;
+  padding: 1.2rem;
+  z-index: 40;
+}
+
+.modal-card{
+  width:100%; max-width: 460px;
+  background: var(--paper-light);
+  border: 1px solid var(--ink);
+  box-shadow: var(--shadow-lift);
+  padding: 1.8rem 1.6rem;
+  max-height: 90vh;
+  overflow-y:auto;
+}
+
+.modal-head{
+  display:flex; justify-content:space-between; align-items:flex-start;
+  margin-bottom: 1rem;
+}
+
+/* ============================================================
+   Toasts
+   ============================================================ */
+
+#toast-root{
+  position:fixed; bottom: 1.2rem; right:1.2rem;
+  display:flex; flex-direction:column; gap:0.6rem;
+  z-index: 60;
+  max-width: min(340px, calc(100vw - 2.4rem));
+}
+
+.toast{
+  background: var(--ink);
+  color: var(--paper-light);
+  padding: 0.8em 1em;
+  font-size: 0.85rem;
+  border-radius: 2px;
+  box-shadow: 0 8px 20px -8px rgba(0,0,0,0.4);
+  animation: toast-in 180ms ease;
+}
+
+@keyframes toast-in{
+  from{ opacity:0; transform: translateY(6px); }
+  to{ opacity:1; transform: translateY(0); }
+}
+
+/* ============================================================
+   Empty state
+   ============================================================ */
+
+.empty{
+  text-align:center;
+  padding: 2.4rem 1rem;
+  color: var(--ink-faint);
+}
+.empty strong{ display:block; color: var(--ink-soft); margin-bottom:0.3rem; }
